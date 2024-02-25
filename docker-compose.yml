@@ -90,8 +90,6 @@ services:
       context: ./adminer
     ports:
       - "${ADMINER_HOST_HTTP_PORT}:8080"
-    volumes:
-      - ./adminer/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
 
   redis:
     build:
