@@ -1,13 +1,12 @@
-ARG PHP_VERSION=8.0
+ARG PHP_VERSION=8.1
 
 FROM php:${PHP_VERSION}-fpm
 
-RUN apt-get update && apt-get install -y libmagickwand-dev imagemagick jpegoptim optipng pngquant gifsicle git
-
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
-RUN chmod uga+x /usr/local/bin/install-php-extensions && sync && \
-    install-php-extensions bcmath gd exif imagick zip imap intl opcache pdo_mysql pdo_pgsql redis
+RUN chmod uga+x /usr/local/bin/install-php-extensions
+RUN sync
+RUN install-php-extensions bcmath gd exif zip imap intl opcache pdo_mysql pdo_pgsql redis
 
 COPY ./opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 COPY ./laravel.ini /usr/local/etc/php/conf.d
