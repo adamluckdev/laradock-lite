@@ -11,11 +11,6 @@ RUN install-php-extensions bcmath gd exif zip imap intl opcache pdo_mysql pdo_pg
 #Disable Xdebug by default
 RUN sed -i 's/^zend_extension=/;zend_extension=/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
-COPY ./opcache.ini /usr/local/etc/php/conf.d/opcache.ini
-COPY ./laravel.ini /usr/local/etc/php/conf.d
-COPY ./xlaravel.pool.conf /usr/local/etc/php-fpm.d/
-COPY ./xdebug.ini /usr/local/etc/php/conf.d
-
 WORKDIR /var/www
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
