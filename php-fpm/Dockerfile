@@ -6,11 +6,15 @@ ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/do
 
 RUN chmod uga+x /usr/local/bin/install-php-extensions
 RUN sync
-RUN install-php-extensions bcmath gd exif zip imap intl opcache pdo_mysql pdo_pgsql redis
+RUN install-php-extensions bcmath gd exif zip imap intl opcache pdo_mysql pdo_pgsql redis xdebug
+
+#Disable Xdebug by default
+RUN sed -i 's/^zend_extension=/;zend_extension=/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 COPY ./opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 COPY ./laravel.ini /usr/local/etc/php/conf.d
 COPY ./xlaravel.pool.conf /usr/local/etc/php-fpm.d/
+COPY ./xdebug.ini /usr/local/etc/php/conf.d
 
 WORKDIR /var/www
 
