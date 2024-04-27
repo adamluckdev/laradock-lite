@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   php81-fpm:
     build:
@@ -138,3 +136,16 @@ services:
     ports:
       - "1025:1025"
       - "8025:8025"
+
+  sftp:
+    build:
+      context: ./sftp
+    volumes:
+      - ./sftp/sftp_key.pub:/home/foo/.ssh/keys/sftp_key.pub
+    ports:
+      - "2222:22"
+    command: foo::::upload
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
