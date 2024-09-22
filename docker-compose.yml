@@ -1,5 +1,6 @@
 services:
   php81-fpm:
+    container_name: laradock-lite-php81-fpm
     build:
       context: ./php-fpm
       args:
@@ -20,12 +21,14 @@ services:
       - "nginx"
 
   php82-fpm:
+    container_name: laradock-lite-php82-fpm
     build:
       context: ./php-fpm
       args:
         - PHP_VERSION=8.2
         - PUID=${PHP_FPM_PUID}
         - PGID=${PHP_FPM_PGID}
+        - ADDITIONAL_PHP_EXTENSIONS=ftp
     volumes:
       - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
       - ./php-fpm/laravel.ini:/usr/local/etc/php/conf.d/laravel.ini
@@ -40,12 +43,14 @@ services:
       - "nginx"
 
   php83-fpm:
+    container_name: laradock-lite-php83-fpm
     build:
       context: ./php-fpm
       args:
         - PHP_VERSION=8.3
         - PUID=${PHP_FPM_PUID}
         - PGID=${PHP_FPM_PGID}
+        - ADDITIONAL_PHP_EXTENSIONS=ftp
     volumes:
       - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
       - ./php-fpm/laravel.ini:/usr/local/etc/php/conf.d/laravel.ini
@@ -60,6 +65,7 @@ services:
       - "nginx"
 
   nginx:
+    container_name: laradock-lite-nginx
     build:
       context: ./nginx
     volumes:
@@ -70,6 +76,7 @@ services:
       - "${NGINX_HOST_HTTP_PORT}:80"
 
   mariadb:
+    container_name: laradock-lite-mariadb
     build:
       context: ./mariadb
       args:
@@ -87,6 +94,7 @@ services:
       - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
 
   postgres:
+    container_name: laradock-lite-postgres
     build:
       context: ./postgres
       args:
@@ -102,12 +110,14 @@ services:
       - TZ=${POSTGRES_TIME_ZONE}
 
   adminer:
+    container_name: laradock-lite-adminer
     build:
       context: ./adminer
     ports:
       - "${ADMINER_HOST_HTTP_PORT}:8080"
 
   redis:
+    container_name: laradock-lite-redis
     build:
       context: ./redis
     volumes:
@@ -116,6 +126,7 @@ services:
       - "${REDIS_PORT}:6379"
 
   redis-webui:
+    container_name: laradock-lite-redis-webui
     build:
       context: ./redis-webui
     environment:
@@ -129,6 +140,7 @@ services:
       - redis
 
   mailhog:
+    container_name: laradock-lite-mailhog
     build:
       context: ./mailhog
     logging:
@@ -138,6 +150,7 @@ services:
       - "8025:8025"
 
   sftp:
+    container_name: laradock-lite-sftp
     build:
       context: ./sftp
     volumes:

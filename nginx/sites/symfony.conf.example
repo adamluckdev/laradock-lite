@@ -19,7 +19,7 @@ server {
     }
 
     location ~ ^/index\.php(/|$) {
-        fastcgi_pass php-upstream;
+        fastcgi_pass laradock-lite-php83-fpm:9000;
         fastcgi_split_path_info ^(.+\.php)(/.*)$;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;

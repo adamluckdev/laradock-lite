@@ -4,9 +4,12 @@ FROM php:${PHP_VERSION}-fpm
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
+# Used for additional extensions or extensions not supported in every PHP version
+ARG ADDITIONAL_PHP_EXTENSIONS=''
+
 RUN chmod uga+x /usr/local/bin/install-php-extensions
 RUN sync
-RUN install-php-extensions bcmath gd exif zip imap intl opcache pdo_mysql pdo_pgsql redis xdebug
+RUN install-php-extensions bcmath gd exif zip imap intl opcache pdo_mysql pdo_pgsql redis xdebug soap ${ADDITIONAL_PHP_EXTENSIONS}
 
 #Disable Xdebug by default
 RUN sed -i 's/^zend_extension=/;zend_extension=/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini

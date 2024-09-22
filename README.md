@@ -4,6 +4,12 @@ Laradock Lite is simple local development stack optimized for Laravel and Symfon
 
 ## Quickstart
 
+Create new directory which will contain all your projects. To follow default settings execute these commands:
+```
+cd ..
+mkdir www
+```
+
 Create .env file from env-example
 
 ```
